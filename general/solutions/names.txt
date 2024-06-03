@@ -1,0 +1,12 @@
+877-D Olya and Energy Drinks: https://codeforces.com/contest/877/problem/D
+1946-A Median of an Array: https://codeforces.com/contest/1946/problem/A
+1462-A Favorite Sequence: https://codeforces.com/contest/1462/problem/A
+1462-B Last Year's Substring: https://codeforces.com/contest/1462/problem/B
+1462-C Unique Number: https://codeforces.com/contest/1462/problem/C
+1950-F 0,1,2 Tree!: https://codeforces.com/problemset/problem/1950/F
+1950-E Nearly shortest Repeating Substring: https://codeforces.com/problemset/problem/1950/E
+1469-A Regular Bracket Sequence: https://codeforces.com/contest/1469/problem/A
+1955-C Inhabitant of the Deep Sea: https://codeforces.com/contest/1955/problem/C
+1472-C Long jumps: https://codeforces.com/contest/1472/problem/C
+1472-D Even-Odd Game: https://codeforces.com/contest/1472/problem/D
+1632-A ABC: https://codeforces.com/contest/1632/problem/A
