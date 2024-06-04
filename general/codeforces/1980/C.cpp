@@ -35,12 +35,16 @@ void solve()
 	int m; cin >> m;
 	um<int,int> p;
 	int last = 0;
+	int diffs = 0;
 	fori (m, 1) {
 		int tmp; cin >> tmp;
+		if (i < a.size() and tmp != a[i]) {
+		  diffs++;
+		}
 		p[tmp] += 1;
 		if (i == m-1) last = tmp;
 	}
-	if (find(all(b), last) == b.end()) {
+	if (find(all(b), last) == b.end() or m < diffs) {
 		cout << "NO\n";
 		return;
 	}
