@@ -1,7 +1,7 @@
 /*
   Author: Joel Ostos
-  Date: 2024-06-03 
-  Problem: https://codeforces.com/contest/1980/problem/C 
+  Date: 2024-06-23 
+  Problem: https://codeforces.com/contest/1873/problem/E 
 */
 
 #include <bits/stdc++.h>
@@ -16,7 +16,6 @@ using namespace std;
 #define vb vector<bool> 
 #define vpi vector<pair<int, int>> 
 #define vvi vector<vector<int>>
-#define um map
 #define ff first
 #define ss second
 #define all(container) container.begin(), container.end()
@@ -26,42 +25,49 @@ using namespace std;
 #define foreq(beg, n, jump) for (int i = beg; i <= n; i+=jump)
 #define fora(container) for (auto it : container)
 
+typedef struct tripla tripla;
+struct tripla {
+  int ff;
+  int ss;
+  int tt;
+};
+
+struct sort_pred {
+    bool operator() (const tripla &left, const tripla &right) {
+        return left.ss < right.ss;
+    }
+};
+
+int calc(int h, vi& v) 
+{
+	int res = 0;
+	for (int i = 0; i < v.size(); i++) {
+		res += max(h - v[i], 0LL);
+	}
+	return res;
+}
+
+int bs(int x, vi& v) 
+{
+	int l = 0, r = 2'000'000'007;
+	while (l <= r) {
+		int mid = l + (r - l + 1) / 2;
+		int c = calc(mid, v);
+		if (c > x) {
+			r = mid - 1;
+		} else {
+			l = mid + 1;
+		}
+	}
+	return r;
+}
+
 void solve()
 {
-	int n; cin >> n;
-	vi a(n), b(n); 
-	fori (n, 1) cin >> a[i];
-	fori (n, 1) cin >> b[i];
-	int m; cin >> m;
-	um<int,int> p;
-	int last = 0;
-	fori (m, 1) {
-		int tmp; cin >> tmp;
-		p[tmp] += 1;
-		if (i == m-1) last = tmp;
-	}
-	if (find(all(b), last) == b.end()) {
-		cout << "NO\n";
-		return;
-	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			auto it = p.find(b[i]);
-			if (it == p.end() or p[b[i]] == 0) {
-				cout << "NO\n";
-				return;
-			}
-			a[i] = b[i];
-			p[b[i]]-=1;
-		}
-	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			cout << "NO\n";
-			return;
-		}
-	}
-	cout << "YES\n";
+	int n, x; cin >> n >> x;
+	vi v(n);
+	for (int i = 0; i < n; i++) cin >> v[i];
+	cout << bs(x, v) << '\n';
 }
 
 int32_t main()

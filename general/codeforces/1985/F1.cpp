@@ -1,7 +1,7 @@
 /*
   Author: Joel Ostos
-  Date: 2024-06-03 
-  Problem: https://codeforces.com/contest/1980/problem/C 
+  Date: 2024-06-04 
+  Problem: https://codeforces.com/contest/1980/problem/F1 
 */
 
 #include <bits/stdc++.h>
@@ -16,7 +16,7 @@ using namespace std;
 #define vb vector<bool> 
 #define vpi vector<pair<int, int>> 
 #define vvi vector<vector<int>>
-#define um map
+#define um unordered_map
 #define ff first
 #define ss second
 #define all(container) container.begin(), container.end()
@@ -26,42 +26,61 @@ using namespace std;
 #define foreq(beg, n, jump) for (int i = beg; i <= n; i+=jump)
 #define fora(container) for (auto it : container)
 
+//Customize functions
+typedef struct tripla tripla;
+struct tripla {
+  int ff;
+  int ss;
+  int tt;
+};
+
+struct sort_pred {
+    bool operator()(const tripla &left, const tripla &right) {
+        return left.ss < right.ss;
+    }
+};
+
 void solve()
 {
-	int n; cin >> n;
-	vi a(n), b(n); 
-	fori (n, 1) cin >> a[i];
-	fori (n, 1) cin >> b[i];
-	int m; cin >> m;
-	um<int,int> p;
-	int last = 0;
-	fori (m, 1) {
-		int tmp; cin >> tmp;
-		p[tmp] += 1;
-		if (i == m-1) last = tmp;
-	}
-	if (find(all(b), last) == b.end()) {
-		cout << "NO\n";
-		return;
-	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			auto it = p.find(b[i]);
-			if (it == p.end() or p[b[i]] == 0) {
-				cout << "NO\n";
-				return;
-			}
-			a[i] = b[i];
-			p[b[i]]-=1;
+	int n, mi, k; cin >> n >> mi >> k;
+	map<int, int> m;
+	vector<tripla> v;
+	fori (k,1) {
+		int a, b; cin >> a >> b;
+		v.pb({a, b, i+1});
+		if (m[b] == 0) {
+			m[b] = a;
+			continue;
+		}
+		if (m[b] != 0 and a > m[b]) {
+			m[b] = a;
 		}
 	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			cout << "NO\n";
-			return;
-		}
+	sort(all(v), sort_pred());
+	map<int, int> ans;
+	int w_l = m[1]+1;
+	int r = 0,e = 1, o = 0;
+	for (auto it : m) {
+	  if(it.ss > r){
+	    o += (it.ff-e) * (n-r);
+	    r = it.ss;
+	    e = it.ff;
+	  }
 	}
-	cout << "YES\n";
+	o += (mi+1-e)*(n-r);
+	cout << o << '\n';
+
+	w_l = 1;
+	fori(k,1) {
+	  if (m[v[i].ss] == v[i].ff and v[i].ff >= w_l) {
+	    ans[v[i].tt] = 1;
+	    w_l = m[v[i].ss]+1;
+	  }
+	}
+
+	fori (k,1) cout << ans[i+1] << ' ';
+
+	cout << '\n';
 }
 
 int32_t main()

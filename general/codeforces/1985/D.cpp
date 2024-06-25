@@ -1,7 +1,7 @@
 /*
   Author: Joel Ostos
   Date: 2024-06-03 
-  Problem: https://codeforces.com/contest/1980/problem/C 
+  Problem: https://codeforces.com/contest/1980/problem/D 
 */
 
 #include <bits/stdc++.h>
@@ -16,7 +16,7 @@ using namespace std;
 #define vb vector<bool> 
 #define vpi vector<pair<int, int>> 
 #define vvi vector<vector<int>>
-#define um map
+#define um unordered_map
 #define ff first
 #define ss second
 #define all(container) container.begin(), container.end()
@@ -28,40 +28,36 @@ using namespace std;
 
 void solve()
 {
-	int n; cin >> n;
-	vi a(n), b(n); 
-	fori (n, 1) cin >> a[i];
-	fori (n, 1) cin >> b[i];
-	int m; cin >> m;
-	um<int,int> p;
-	int last = 0;
-	fori (m, 1) {
-		int tmp; cin >> tmp;
-		p[tmp] += 1;
-		if (i == m-1) last = tmp;
+  int n, m; cin >> n >> m;
+  vector<string> v(n);
+  for (int i = 0; i < n; i++) { cin >> v[i]; }
+  pair<int, int> first = {-1, -1};
+  pair<int, int> last = {-1, -1};
+  bool f = 0;
+  for (int i = 0; i < n; i++) {
+    pair<int, int> coor;
+    int nums = 0;
+    for (int j = 0; j < m; j++) {
+    	if (v[i][j] == '#') {
+		coor.ff = i+1;
+		coor.ss = j+1;
+		nums++;
 	}
-	if (find(all(b), last) == b.end()) {
-		cout << "NO\n";
-		return;
-	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			auto it = p.find(b[i]);
-			if (it == p.end() or p[b[i]] == 0) {
-				cout << "NO\n";
-				return;
-			}
-			a[i] = b[i];
-			p[b[i]]-=1;
-		}
-	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			cout << "NO\n";
-			return;
-		}
-	}
-	cout << "YES\n";
+    }
+    if (first.ff == -1 and nums == 1 and !f) {
+	    first = coor;
+	    last = coor;
+	    f = 1;
+    } else if (nums == 1 and f) {
+	    last = coor;
+    }
+  }
+  if (first.ff == last.ff and first.ss == last.ss) {
+  	cout << first.ff << " " << first.ss << '\n';
+	return;
+  }
+  int res = first.ff + ((last.ff - first.ff)/ 2);
+  cout << res << " " << first.ss << '\n';
 }
 
 int32_t main()

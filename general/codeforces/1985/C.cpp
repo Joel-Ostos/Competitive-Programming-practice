@@ -26,42 +26,60 @@ using namespace std;
 #define foreq(beg, n, jump) for (int i = beg; i <= n; i+=jump)
 #define fora(container) for (auto it : container)
 
+
+struct tripla {
+  int ff; 
+  int ss; 
+  int tt; 
+};
+typedef  struct tripla tripla;
+
+struct myComp {
+    constexpr bool operator()( tripla const& a, tripla const& b)
+    {
+        return a.ff > b.ff;
+    }
+};
+
 void solve()
 {
-	int n; cin >> n;
-	vi a(n), b(n); 
-	fori (n, 1) cin >> a[i];
-	fori (n, 1) cin >> b[i];
-	int m; cin >> m;
-	um<int,int> p;
-	int last = 0;
-	fori (m, 1) {
-		int tmp; cin >> tmp;
-		p[tmp] += 1;
-		if (i == m-1) last = tmp;
+	int l, c; cin >> l >> c;
+	vector<int> att(c), cool(c);
+	for (int i = 0; i < c; i++) cin >> att[i];
+	for (int i = 0; i < c; i++) cin >> cool[i];
+	pair<int, int> max = {-1,-1}, min = {LLONG_MAX,LLONG_MAX};
+	for (int i = 0; i < c; i++) {
+		if (cool[i] > max.ss) {
+			max = {att[i], cool[i]};
+		}
+		if (cool[i] < min.ss) {
+			min = {att[i], cool[i]};
+		}
 	}
-	if (find(all(b), last) == b.end()) {
-		cout << "NO\n";
+	int t_damage = 0;
+	for (int i = 0; i < c; i++) {
+		t_damage += att[i];
+	}
+	if (l <= t_damage) {
+		cout << "1\n";
 		return;
 	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			auto it = p.find(b[i]);
-			if (it == p.end() or p[b[i]] == 0) {
-				cout << "NO\n";
-				return;
-			}
-			a[i] = b[i];
-			p[b[i]]-=1;
+	int cont = 1;
+	l -= t_damage;
+	int min_d = -1;
+	for (int i = min.ss; i <= max.ss; i++) {
+		int act = 0;
+		for (int j = 0; j < c; j++) {
+			int co = ((int) (i / cool[j]));
+			if (co == 0) break;
+			act += att[i] * co;
+		}
+		int rem = (l / act) + 1;
+		if (min_d > i*rem) {
+			min_d = i*rem;
 		}
 	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			cout << "NO\n";
-			return;
-		}
-	}
-	cout << "YES\n";
+	cout << min_d << '\n';
 }
 
 int32_t main()

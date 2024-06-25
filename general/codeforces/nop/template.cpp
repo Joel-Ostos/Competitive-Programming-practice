@@ -10,14 +10,29 @@ using namespace std;
 #define vb vector<bool> 
 #define vpi vector<pair<int, int>> 
 #define vvi vector<vector<int>>
-#define um unordered_map
+#define um map
 #define ff first
 #define ss second
+#define all(container) container.begin(), container.end()
 
 #define fori(n, jump) for (int i = 0; i < n; i+=jump)
 #define fore(beg, n, jump) for (int i = beg; i < n; i+=jump)
 #define foreq(beg, n, jump) for (int i = beg; i <= n; i+=jump)
 #define fora(container) for (auto it : container)
+
+typedef struct tripla tripla;
+struct tripla {
+  int ff;
+  int ss;
+  int tt;
+};
+
+struct sort_pred {
+    bool operator() (const tripla &left, const tripla &right) {
+        return left.ss < right.ss;
+    }
+};
+
 
 void solve()
 {

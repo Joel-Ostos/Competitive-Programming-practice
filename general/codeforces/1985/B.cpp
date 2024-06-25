@@ -1,7 +1,7 @@
 /*
   Author: Joel Ostos
   Date: 2024-06-03 
-  Problem: https://codeforces.com/contest/1980/problem/C 
+  Problem: https://codeforces.com/contest/1980/problem/B 
 */
 
 #include <bits/stdc++.h>
@@ -16,7 +16,7 @@ using namespace std;
 #define vb vector<bool> 
 #define vpi vector<pair<int, int>> 
 #define vvi vector<vector<int>>
-#define um map
+#define um unordered_map
 #define ff first
 #define ss second
 #define all(container) container.begin(), container.end()
@@ -28,41 +28,14 @@ using namespace std;
 
 void solve()
 {
-	int n; cin >> n;
-	vi a(n), b(n); 
-	fori (n, 1) cin >> a[i];
-	fori (n, 1) cin >> b[i];
-	int m; cin >> m;
-	um<int,int> p;
-	int last = 0;
-	fori (m, 1) {
-		int tmp; cin >> tmp;
-		p[tmp] += 1;
-		if (i == m-1) last = tmp;
-	}
-	if (find(all(b), last) == b.end()) {
-		cout << "NO\n";
-		return;
-	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			auto it = p.find(b[i]);
-			if (it == p.end() or p[b[i]] == 0) {
-				cout << "NO\n";
-				return;
-			}
-			a[i] = b[i];
-			p[b[i]]-=1;
-		}
-	}
-	fori(n, 1) {
-		if (a[i] != b[i]) {
-			cout << "NO\n";
-			return;
-		}
-	}
-	cout << "YES\n";
+  int n; cin >> n;
+  if (n <= 3) {
+    cout << n << '\n';
+    return;
+  }
+  cout << 2 << '\n';
 }
+
 
 int32_t main()
 {

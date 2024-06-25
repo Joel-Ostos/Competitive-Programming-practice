@@ -44,6 +44,7 @@ void solve()
 			idxs.pb(i-2);
 			idxs.pb(i);
 			idxs.pb(i+1);
+			break;
 		}
 	}
 	if (idxs.size() == 0) {
